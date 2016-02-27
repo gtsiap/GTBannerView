@@ -8,11 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		455528571C81DA8900DF15AF /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 455528561C81DA8900DF15AF /* SnapKit.framework */; };
-		45B2B82F1C81D6B70035DFFA /* GTBannerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 45B2B82D1C81D6B70035DFFA /* GTBannerView.h */; };
+		4555285B1C81DAFF00DF15AF /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4555285A1C81DAFF00DF15AF /* BannerView.swift */; };
+		4555285D1C81DB9100DF15AF /* ViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4555285C1C81DB9100DF15AF /* ViewControllerExtensions.swift */; };
+		4555285F1C81DC5F00DF15AF /* BannerViewPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4555285E1C81DC5F00DF15AF /* BannerViewPosition.swift */; };
+		455528611C81DCA700DF15AF /* BannerViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455528601C81DCA700DF15AF /* BannerViewConfiguration.swift */; };
+		45B2B82F1C81D6B70035DFFA /* GTBannerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 45B2B82D1C81D6B70035DFFA /* GTBannerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		455528561C81DA8900DF15AF /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
+		4555285A1C81DAFF00DF15AF /* BannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
+		4555285C1C81DB9100DF15AF /* ViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerExtensions.swift; sourceTree = "<group>"; };
+		4555285E1C81DC5F00DF15AF /* BannerViewPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerViewPosition.swift; sourceTree = "<group>"; };
+		455528601C81DCA700DF15AF /* BannerViewConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerViewConfiguration.swift; sourceTree = "<group>"; };
 		45B2B82D1C81D6B70035DFFA /* GTBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTBannerView.h; sourceTree = "<group>"; };
 		45B2B82E1C81D6B70035DFFA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45DB384D1C81D6310054BAD7 /* GTBannerView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GTBannerView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -35,6 +43,10 @@
 			children = (
 				45B2B82D1C81D6B70035DFFA /* GTBannerView.h */,
 				45B2B82E1C81D6B70035DFFA /* Info.plist */,
+				4555285A1C81DAFF00DF15AF /* BannerView.swift */,
+				4555285C1C81DB9100DF15AF /* ViewControllerExtensions.swift */,
+				4555285E1C81DC5F00DF15AF /* BannerViewPosition.swift */,
+				455528601C81DCA700DF15AF /* BannerViewConfiguration.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -134,6 +146,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4555285D1C81DB9100DF15AF /* ViewControllerExtensions.swift in Sources */,
+				455528611C81DCA700DF15AF /* BannerViewConfiguration.swift in Sources */,
+				4555285F1C81DC5F00DF15AF /* BannerViewPosition.swift in Sources */,
+				4555285B1C81DAFF00DF15AF /* BannerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,7 +248,8 @@
 		45DB38561C81D6310054BAD7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -248,13 +265,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.terietor.GTBannerView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		45DB38571C81D6310054BAD7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;

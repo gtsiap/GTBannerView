@@ -19,19 +19,100 @@
 // THE SOFTWARE.
 
 import UIKit
+import SnapKit
+import GTBannerView
 
 class ViewController: UIViewController {
 
+    var bannerView: BannerView?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        let b1 = createButton(
+            "Show Banner for Navigation Bar",
+            action: "showBannerForNavigationBar"
+        )
+
+        b1.snp_makeConstraints() { make in
+            make.center.equalTo(self.view)
+        }
+
+        let b2 = createButton(
+            "Hide Banner for Navigation Bar",
+            action: "hideBannerForNavigationBar"
+        )
+
+        b2.snp_makeConstraints() { make in
+            make.top.equalTo(b1.snp_bottom).offset(10)
+            make.centerX.equalTo(b1)
+        }
+
+        let b3 = createButton(
+            "Show Banner for Status Bar",
+            action: "showBannerForStatusBar"
+        )
+
+        b3.snp_makeConstraints() { make in
+            make.top.equalTo(b2.snp_bottom).offset(10)
+            make.centerX.equalTo(b1)
+        }
+
+        let b4 = createButton(
+            "Hide Banner for Status Bar",
+            action: "hideBannerForStatusBar"
+        )
+
+        b4.snp_makeConstraints() { make in
+            make.top.equalTo(b3.snp_bottom).offset(10)
+            make.centerX.equalTo(b1)
+        }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    private func createButton(title: String, action: String) -> UIButton {
+        let button = UIButton(type: .System)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle(title, forState: .Normal)
+        button.addTarget(self, action: Selector(action), forControlEvents: .TouchUpInside)
+
+        self.view.addSubview(button)
+
+        return button
     }
 
+    @objc private func showBannerForNavigationBar() {
 
+        var bannerConfig = BannerViewConfiguration()
+        bannerConfig.title = "Network Notification"
+        bannerConfig.titleColor = UIColor.whiteColor()
+        bannerConfig.description = "Your device isn't connected to a Network"
+        bannerConfig.descriptionColor = UIColor.whiteColor()
+        bannerConfig.image = UIImage(named: "info")
+
+        self.bannerView = self.showBannerView(bannerConfig)
+    }
+
+    @objc private func hideBannerForNavigationBar() {
+        self.bannerView?.hide()
+    }
+
+    @objc private func showBannerForStatusBar() {
+        var bannerConfig = BannerViewConfiguration()
+        bannerConfig.title = "New Message"
+        bannerConfig.titleColor = UIColor.blackColor()
+        bannerConfig.description = "You have a new message"
+        bannerConfig.descriptionColor = UIColor.blackColor()
+        bannerConfig.image = UIImage(named: "info")
+        bannerConfig.position = .StatusBar
+        bannerConfig.imageColor = UIColor.blackColor()
+
+        self.bannerView = self.showBannerView(
+            bannerConfig,
+            backgroundColor: UIColor.yellowColor()
+        )
+    }
+
+    @objc private func hideBannerForStatusBar() {
+        self.bannerView?.hide()
+    }
 }
 

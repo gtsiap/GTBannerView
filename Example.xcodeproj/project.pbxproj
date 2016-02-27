@@ -14,6 +14,7 @@
 		4555284A1C81DA2A00DF15AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455528441C81DA2A00DF15AF /* AppDelegate.swift */; };
 		455528511C81DA4800DF15AF /* GTBannerView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 455528501C81DA3C00DF15AF /* GTBannerView.framework */; };
 		455528521C81DA4800DF15AF /* GTBannerView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 455528501C81DA3C00DF15AF /* GTBannerView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		455528641C81EBE500DF15AF /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 455528631C81EBE500DF15AF /* SnapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		455528431C81DA2A00DF15AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Example/Assets.xcassets; sourceTree = "<group>"; };
 		455528441C81DA2A00DF15AF /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Example/AppDelegate.swift; sourceTree = "<group>"; };
 		4555284B1C81DA3C00DF15AF /* GTBannerView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = GTBannerView.xcodeproj; sourceTree = "<group>"; };
+		455528631C81EBE500DF15AF /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				455528511C81DA4800DF15AF /* GTBannerView.framework in Frameworks */,
+				455528641C81EBE500DF15AF /* SnapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +94,7 @@
 		457F44BD1C81D894007BE528 = {
 			isa = PBXGroup;
 			children = (
+				455528631C81EBE500DF15AF /* SnapKit.framework */,
 				4555284B1C81DA3C00DF15AF /* GTBannerView.xcodeproj */,
 				4555283C1C81DA2A00DF15AF /* ViewController.swift */,
 				4555283D1C81DA2A00DF15AF /* Info.plist */,
@@ -256,6 +260,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Example/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -270,6 +278,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Example/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

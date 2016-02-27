@@ -27,6 +27,21 @@ extension UIViewController {
         configuration: BannerViewConfiguration,
         backgroundColor: UIColor = UIColor.redColor()
     ) -> BannerView {
+
+        let bannerView = createBannerView(
+            configuration,
+            backgroundColor:  backgroundColor
+        )
+
+        bannerView.show()
+
+        return bannerView
+    }
+
+    public func createBannerView(
+        configuration: BannerViewConfiguration,
+        backgroundColor: UIColor = UIColor.redColor()
+    ) -> BannerView {
         let bannerView = BannerView(
             configuration: configuration,
             viewController:  self
@@ -37,8 +52,8 @@ extension UIViewController {
         } else {
             UIApplication.sharedApplication().windows[0].addSubview(bannerView)
         }
+        
         bannerView.backgroundColor = backgroundColor
-        bannerView.show()
 
         return bannerView
     }

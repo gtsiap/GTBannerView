@@ -89,6 +89,10 @@ class ViewController: UIViewController {
         bannerConfig.image = UIImage(named: "info")
 
         self.bannerView = self.showBannerView(bannerConfig)
+
+        self.bannerView?.didTapBanner = {
+            print("Did Tap Banner")
+        }
     }
 
     @objc private func hideBannerForNavigationBar() {

@@ -22,6 +22,8 @@ import UIKit
 import SnapKit
 
 public class BannerView: UIView {
+    public var didTapBanner: (() -> ())?
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -43,6 +45,29 @@ public class BannerView: UIView {
     private let configuration: BannerViewConfiguration
     private weak var viewController: UIViewController!
     private var heightConstraint: Constraint?
+    private var visibilityConstraint: Constraint?
+
+    private lazy var swipeGesture: UISwipeGestureRecognizer = {
+        let swipe = UISwipeGestureRecognizer(
+            target: self,
+            action: "didSwipeUp"
+        )
+
+        swipe.direction = .Up
+
+        return swipe
+    }()
+
+    private lazy var tapGesture: UITapGestureRecognizer = {
+        let tap = UITapGestureRecognizer(
+            target: self,
+            action: "didTapGesture"
+        )
+
+        tap.numberOfTapsRequired = 1
+
+        return tap
+    }()
 
     private var targetView: UIView {
         let targetView: UIView
@@ -76,6 +101,9 @@ public class BannerView: UIView {
         configureDescription()
         configureImage()
         setupConstraints()
+
+        self.addGestureRecognizer(self.swipeGesture)
+        self.addGestureRecognizer(self.tapGesture)
     }
 
     private func configureTitle() {
@@ -174,12 +202,11 @@ public class BannerView: UIView {
             make.leading.trailing.equalTo(self.targetView)
             if configuration.position == .NavigationBar {
                 make.top.equalTo(self.viewController.snp_topLayoutGuideBottom)
-                self.heightConstraint = make.bottom.equalTo(self.snp_top).constraint
+                self.visibilityConstraint = make.bottom.equalTo(self.snp_top).constraint
             } else {
-                self.heightConstraint = make.top.equalTo(self.targetView)
+                self.visibilityConstraint = make.top.equalTo(self.targetView)
                     .offset(-self.targetView.frame.height / 2).constraint
             }
-
         }
 
         self.setContentCompressionResistancePriority(1000, forAxis: .Vertical)
@@ -189,9 +216,9 @@ public class BannerView: UIView {
         self.targetView.layoutIfNeeded()
 
         if self.configuration.position == .NavigationBar {
-            self.heightConstraint?.deactivate()
+            self.visibilityConstraint?.deactivate()
         } else {
-            self.heightConstraint?.updateOffset(0)
+            self.visibilityConstraint?.updateOffset(0)
         }
 
         UIView.animateWithDuration(self.configuration.duration) {
@@ -202,9 +229,9 @@ public class BannerView: UIView {
     public func hide() {
         self.targetView.layoutIfNeeded()
         if self.configuration.position == .NavigationBar {
-            self.heightConstraint?.activate()
+            self.visibilityConstraint?.activate()
         } else {
-            self.heightConstraint?
+            self.visibilityConstraint?
                 .updateOffset(-self.targetView.frame.height / 2)
         }
 
@@ -214,5 +241,14 @@ public class BannerView: UIView {
         }) { _ in
             self.removeFromSuperview()
         }
+    }
+
+    @objc private func didSwipeUp() {
+        hide()
+    }
+
+    @objc private  func didTapGesture() {
+        hide()
+        self.didTapBanner?()
     }
 }

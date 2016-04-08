@@ -383,6 +383,7 @@
 				4555283B1C81D97C00DF15AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		457F44C11C81D894007BE528 /* Build configuration list for PBXProject "Example" */ = {
 			isa = XCConfigurationList;

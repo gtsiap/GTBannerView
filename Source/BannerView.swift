@@ -50,7 +50,7 @@ public class BannerView: UIView {
     private lazy var swipeGesture: UISwipeGestureRecognizer = {
         let swipe = UISwipeGestureRecognizer(
             target: self,
-            action: "didSwipeUp"
+            action: #selector(didSwipeUp)
         )
 
         swipe.direction = .Up
@@ -61,7 +61,7 @@ public class BannerView: UIView {
     private lazy var tapGesture: UITapGestureRecognizer = {
         let tap = UITapGestureRecognizer(
             target: self,
-            action: "didTapGesture"
+            action: #selector(didTapGesture)
         )
 
         tap.numberOfTapsRequired = 1

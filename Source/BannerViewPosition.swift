@@ -19,6 +19,6 @@
 // THE SOFTWARE.
 
 public enum BannerViewPosition {
-    case StatusBar
-    case NavigationBar
+    case statusBar
+    case navigationBar
 }

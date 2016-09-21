@@ -24,8 +24,8 @@ import SnapKit
 extension UIViewController {
 
     public func showBannerView(
-        configuration: BannerViewConfiguration,
-        backgroundColor: UIColor = UIColor.redColor()
+        _ configuration: BannerViewConfiguration,
+        backgroundColor: UIColor = UIColor.red
     ) -> BannerView {
 
         let bannerView = createBannerView(
@@ -39,18 +39,18 @@ extension UIViewController {
     }
 
     public func createBannerView(
-        configuration: BannerViewConfiguration,
-        backgroundColor: UIColor = UIColor.redColor()
+        _ configuration: BannerViewConfiguration,
+        backgroundColor: UIColor = UIColor.red
     ) -> BannerView {
         let bannerView = BannerView(
             configuration: configuration,
             viewController:  self
         )
 
-        if configuration.position == .NavigationBar {
+        if configuration.position == .navigationBar {
             self.view.addSubview(bannerView)
         } else {
-            UIApplication.sharedApplication().windows[0].addSubview(bannerView)
+            UIApplication.shared.windows[0].addSubview(bannerView)
         }
         
         bannerView.backgroundColor = backgroundColor

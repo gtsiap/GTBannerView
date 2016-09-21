@@ -21,14 +21,14 @@
 import UIKit
 import SnapKit
 
-public class BannerView: UIView {
-    public var didTapBanner: (() -> ())?
+open class BannerView: UIView {
+    open var didTapBanner: (() -> ())?
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
-        label.lineBreakMode = .ByWordWrapping
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
 
@@ -36,7 +36,7 @@ public class BannerView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
-        label.lineBreakMode = .ByWordWrapping
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
 
@@ -53,7 +53,7 @@ public class BannerView: UIView {
             action: #selector(didSwipeUp)
         )
 
-        swipe.direction = .Up
+        swipe.direction = .up
 
         return swipe
     }()
@@ -72,10 +72,10 @@ public class BannerView: UIView {
     private var targetView: UIView {
         let targetView: UIView
 
-        if configuration.position == .NavigationBar {
+        if configuration.position == .navigationBar {
             targetView = self.viewController.view
         } else {
-            targetView = UIApplication.sharedApplication()
+            targetView = UIApplication.shared
                 .windows[0]
         }
 
@@ -88,7 +88,7 @@ public class BannerView: UIView {
     ) {
         self.configuration = configuration
         self.viewController = viewController
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         commonInit()
     }
 
@@ -143,7 +143,7 @@ public class BannerView: UIView {
             if let imageColor = self.configuration.imageColor {
                 self.imageView?.tintColor = imageColor
                 self.imageView?.image = image
-                    .imageWithRenderingMode(.AlwaysTemplate)
+                    .withRenderingMode(.alwaysTemplate)
             } else {
                 self.imageView = imageView
             }
@@ -158,32 +158,32 @@ public class BannerView: UIView {
 
         if let imageView = self.imageView {
             addSubview(imageView)
-            imageView.snp_makeConstraints() { make in
+            imageView.snp.makeConstraints() { make in
                 make.centerY.equalTo(self)
                 make.leading.equalTo(self).offset(10)
             }
 
-            imageView.setContentHuggingPriority(1000, forAxis: .Horizontal)
+            imageView.setContentHuggingPriority(1000, for: .horizontal)
         }
 
-        self.titleLabel.snp_makeConstraints() { make in
-            let offSet = self.configuration.position == .StatusBar ?
-                UIApplication.sharedApplication().statusBarFrame.height
+        self.titleLabel.snp.makeConstraints() { make in
+            let offSet = self.configuration.position == .statusBar ?
+                UIApplication.shared.statusBarFrame.height
                 : 0
             make.top.equalTo(self).offset(offSet)
         }
 
-        self.descriptionLabel.snp_makeConstraints() { make in
-            make.top.equalTo(self.titleLabel.snp_bottom).offset(10).priorityLow()
+        self.descriptionLabel.snp.makeConstraints() { make in
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(10).priority(UILayoutPriorityDefaultLow)
             make.bottom.equalTo(self).offset(-10)
         }
 
         [self.titleLabel, self.descriptionLabel].forEach() {
-            $0.snp_makeConstraints() { make in
+            $0.snp.makeConstraints() { make in
                 make.trailing.equalTo(self).offset(-10)
 
                 if let imageView = self.imageView {
-                    make.leading.equalTo(imageView.snp_trailing).offset(10)
+                    make.leading.equalTo(imageView.snp.trailing).offset(10)
                 } else {
                     make.leading.equalTo(self).offset(10)
                 }
@@ -191,63 +191,63 @@ public class BannerView: UIView {
         } // end forEach
     }
 
-    public override func didMoveToSuperview() {
+    open override func didMoveToSuperview() {
         super.didMoveToSuperview()
 
         guard let _ = self.superview else { return }
 
         self.translatesAutoresizingMaskIntoConstraints = false
 
-        self.snp_makeConstraints() { make in
+        self.snp.makeConstraints() { make in
             make.leading.trailing.equalTo(self.targetView)
-            if configuration.position == .NavigationBar {
-                make.top.equalTo(self.viewController.snp_topLayoutGuideBottom)
-                self.visibilityConstraint = make.bottom.equalTo(self.snp_top).constraint
+            if configuration.position == .navigationBar {
+                make.top.equalTo(self.viewController.topLayoutGuide.snp.bottom)//.snp.topLayoutGuideBottom)
+                self.visibilityConstraint = make.bottom.equalTo(self.snp.top).constraint
             } else {
                 self.visibilityConstraint = make.top.equalTo(self.targetView)
                     .offset(-self.targetView.frame.height / 2).constraint
             }
         }
 
-        self.setContentCompressionResistancePriority(1000, forAxis: .Vertical)
+        self.setContentCompressionResistancePriority(1000, for: .vertical)
     }
 
     public func show() {
         self.targetView.layoutIfNeeded()
 
-        if self.configuration.position == .NavigationBar {
+        if self.configuration.position == .navigationBar {
             self.visibilityConstraint?.deactivate()
         } else {
-            self.visibilityConstraint?.updateOffset(0)
+            self.visibilityConstraint?.update(offset: 0)
         }
 
-        UIView.animateWithDuration(self.configuration.duration) {
+        UIView.animate(withDuration: self.configuration.duration, animations: {
             self.targetView.layoutIfNeeded()
-        }
+        }) 
     }
 
     public func hide() {
         self.targetView.layoutIfNeeded()
-        if self.configuration.position == .NavigationBar {
+        if self.configuration.position == .navigationBar {
             self.visibilityConstraint?.activate()
         } else {
             self.visibilityConstraint?
-                .updateOffset(-self.targetView.frame.height / 2)
+                .update(offset: -self.targetView.frame.height / 2)
         }
 
-        UIView.animateWithDuration(self.configuration.duration,
+        UIView.animate(withDuration: self.configuration.duration,
         animations: {
             self.targetView.layoutIfNeeded()
-        }) { _ in
+        }, completion: { _ in
             self.removeFromSuperview()
-        }
+        }) 
     }
 
     @objc private func didSwipeUp() {
         hide()
     }
 
-    @objc private  func didTapGesture() {
+    @objc private func didTapGesture() {
         hide()
         self.didTapBanner?()
     }

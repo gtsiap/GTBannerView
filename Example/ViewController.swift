@@ -33,7 +33,7 @@ class ViewController: UIViewController {
             action: "showBannerForNavigationBar"
         )
 
-        b1.snp_makeConstraints() { make in
+        b1.snp.makeConstraints() { make in
             make.center.equalTo(self.view)
         }
 
@@ -42,8 +42,8 @@ class ViewController: UIViewController {
             action: "hideBannerForNavigationBar"
         )
 
-        b2.snp_makeConstraints() { make in
-            make.top.equalTo(b1.snp_bottom).offset(10)
+        b2.snp.makeConstraints() { make in
+            make.top.equalTo(b1.snp.bottom).offset(10)
             make.centerX.equalTo(b1)
         }
 
@@ -52,8 +52,8 @@ class ViewController: UIViewController {
             action: "showBannerForStatusBar"
         )
 
-        b3.snp_makeConstraints() { make in
-            make.top.equalTo(b2.snp_bottom).offset(10)
+        b3.snp.makeConstraints() { make in
+            make.top.equalTo(b2.snp.bottom).offset(10)
             make.centerX.equalTo(b1)
         }
 
@@ -62,17 +62,17 @@ class ViewController: UIViewController {
             action: "hideBannerForStatusBar"
         )
 
-        b4.snp_makeConstraints() { make in
-            make.top.equalTo(b3.snp_bottom).offset(10)
+        b4.snp.makeConstraints() { make in
+            make.top.equalTo(b3.snp.bottom).offset(10)
             make.centerX.equalTo(b1)
         }
     }
 
-    private func createButton(title: String, action: String) -> UIButton {
-        let button = UIButton(type: .System)
+    private func createButton(_ title: String, action: String) -> UIButton {
+        let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle(title, forState: .Normal)
-        button.addTarget(self, action: Selector(action), forControlEvents: .TouchUpInside)
+        button.setTitle(title, for: UIControlState())
+        button.addTarget(self, action: Selector(action), for: .touchUpInside)
 
         self.view.addSubview(button)
 
@@ -83,9 +83,9 @@ class ViewController: UIViewController {
 
         var bannerConfig = BannerViewConfiguration()
         bannerConfig.title = "Network Notification"
-        bannerConfig.titleColor = UIColor.whiteColor()
+        bannerConfig.titleColor = UIColor.white
         bannerConfig.description = "Your device isn't connected to a Network"
-        bannerConfig.descriptionColor = UIColor.whiteColor()
+        bannerConfig.descriptionColor = UIColor.white
         bannerConfig.image = UIImage(named: "info")
 
         self.bannerView = self.showBannerView(bannerConfig)
@@ -102,16 +102,16 @@ class ViewController: UIViewController {
     @objc private func showBannerForStatusBar() {
         var bannerConfig = BannerViewConfiguration()
         bannerConfig.title = "New Message"
-        bannerConfig.titleColor = UIColor.blackColor()
+        bannerConfig.titleColor = UIColor.black
         bannerConfig.description = "You have a new message"
-        bannerConfig.descriptionColor = UIColor.blackColor()
+        bannerConfig.descriptionColor = UIColor.black
         bannerConfig.image = UIImage(named: "info")
-        bannerConfig.position = .StatusBar
-        bannerConfig.imageColor = UIColor.blackColor()
+        bannerConfig.position = .statusBar
+        bannerConfig.imageColor = UIColor.black
 
         self.bannerView = self.showBannerView(
             bannerConfig,
-            backgroundColor: UIColor.yellowColor()
+            backgroundColor: UIColor.yellow
         )
     }
 

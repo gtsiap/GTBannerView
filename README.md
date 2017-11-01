@@ -1,3 +1,5 @@
+# DEPRECATED
+
 # GTBannerView
 A simple library for creating banners
 
